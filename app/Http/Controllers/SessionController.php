@@ -20,7 +20,12 @@ class SessionController extends Controller
             'username' => 'email|required',
             'password' => 'required'
         ]);
-        auth()->attempt(['email'=>$r->username, 'password'=>$r->password]);
+        $auth=auth()->attempt(['email'=>$r->username, 'password'=>$r->password]);
+        if ($auth){
+            return redirect()->home();
+        }else{
+            return back()->withErrors(['Identifiants incorrects']);
+        }
     }
 
     public function logout(){
