@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::get('/charging_station', 'ChargingStationController@index');
+Route::get('/charging_station/{id}', 'ChargingStationController@index');
+
+Route::get('/cars', function(){
+    echo json_encode([['name'=>"Zoe"], ['name'=>"Leaf"], ['name'=>"Etron"]]);
 });
