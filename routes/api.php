@@ -13,20 +13,36 @@ use Illuminate\Http\Request;
 |
 */
 
-/***
+/********************************************
  * Charging Station
- ***/
+ ********************************************/
 
-/* Get all charging station */
-Route::get('/charging_station', 'ChargingStationController@index');
+/* Get all charging stations */
+Route::get('/charging_stations', 'ChargingStationController@index');
 
 /* Get one charging station by ID */
-Route::get('/charging_station/{id}', 'ChargingStationController@index');
+Route::get('/charging_stations/{id}', 'ChargingStationController@index');
 
 
-/***
+/********************************************
  * Cars
- ***/
+ ********************************************/
+
+/* Get all cars */
 Route::get('/cars', function(){
     echo json_encode([['name'=>"Zoe"], ['name'=>"Leaf"], ['name'=>"Etron"]]);
 });
+
+
+/********************************************
+ * Users
+ ********************************************/
+
+/* Get all users */
+Route::get('/users', 'SessionController@index');
+
+/* Get one user by ID */
+Route::get('/users/{id}', 'SessionController@oneUser');
+
+/* Get id of one user */
+Route::get('/users/id/{id}', 'SessionController@oneUserId');

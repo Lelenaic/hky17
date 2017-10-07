@@ -14,8 +14,7 @@ class ChargingStationController extends Controller
      */
     public function index()
     {
-        $c = new ChargingStation();
-        return $c->all();
+        return response()->json(ChargingStation::all());
     }
 
     /**
