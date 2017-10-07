@@ -13,15 +13,11 @@ class SessionController extends Controller
     }
 
     public function index(){
-        return response()->json(User::all());
+        return User::all();
     }
 
     public function oneUser($id){
-        return response()->json(User::where('id', $id)->get());
-    }
-
-    public function oneUserId($id){
-        return response()->json(User::where('id', $id)->get());
+        return User::where('id', $id)->get();
     }
 
     public function login(Request $r){
@@ -31,13 +27,13 @@ class SessionController extends Controller
         ]);
         $auth=auth()->attempt(['email'=>$r->username, 'password'=>$r->password]);
         if ($auth){
-            return response()->json(['success'=>true]);
+            return ['success'=>true];
         }else{
-            return response()->json(['success'=>false]);
+            return ['success'=>false];
         }
     }
 
     public function logout(){
-
+        auth()->logout();
     }
 }

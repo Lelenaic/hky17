@@ -44,5 +44,3 @@ Route::get('/users', 'SessionController@index');
 /* Get one user by ID */
 Route::get('/users/{id}', 'SessionController@oneUser');
 
-/* Get id of one user */
-Route::get('/users/id/{id}', 'SessionController@oneUserId');
