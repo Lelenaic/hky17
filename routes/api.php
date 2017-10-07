@@ -24,7 +24,6 @@ Route::get('/charging_station', 'ChargingStationController@index');
 Route::get('/charging_station/{id}', 'ChargingStationController@index');
 
 
-
 /***
  * Cars
  ***/
