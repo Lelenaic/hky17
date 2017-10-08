@@ -22,7 +22,9 @@ class CreateChargingStationsTable extends Migration
             $table->double('latitude');
             $table->double('longitude');
             $table->string('owner');
-            $table->string('rechargeType');
+            $table->boolean('canSlowCharge');
+            $table->boolean('canAcceleratedCharge');
+            $table->boolean('canFastCharge');
             $table->integer('rechargePoint');
             $table->string('connectorType');
             $table->tinyInteger('state')->default(1);
