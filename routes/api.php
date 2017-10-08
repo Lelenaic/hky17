@@ -29,8 +29,8 @@ Route::get('/charging_stations/{id}', 'ChargingStationController@index');
  ********************************************/
 
 /* Get all cars */
-Route::get('/cars', function(){
-    echo json_encode([['name'=>"Zoe"], ['name'=>"Leaf"], ['name'=>"Etron"]]);
+Route::get('/cars', function () {
+
 });
 
 
@@ -44,3 +44,11 @@ Route::get('/users', 'SessionController@index');
 /* Get one user by ID */
 Route::get('/users/{id}', 'SessionController@oneUser');
 
+/* Try to login an user */
+Route::post('/login', 'SessionController@login');
+
+/********************************************
+ * Bookings
+ ********************************************/
+/* Make a new Boking */
+Route::post('/bookings', 'BookingController@store');

@@ -11,9 +11,3 @@
 |
 */
 
-Route::get('/', 'DashboardController@index');
-
-
-Route::get('/login', 'SessionController@index')->name('login');
-Route::get('/test/{name}', 'SessionController@index')->name('test');
-Route::post('login', 'SessionController@login')->name('loginPost');
