@@ -13,6 +13,34 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/********************************************
+ * Charging Station
+ ********************************************/
+
+/* Get all charging stations */
+Route::get('/charging_stations', 'ChargingStationController@index');
+
+/* Get one charging station by ID */
+Route::get('/charging_stations/{id}', 'ChargingStationController@index');
+
+
+/********************************************
+ * Cars
+ ********************************************/
+
+/* Get all cars */
+Route::get('/cars', function(){
+    echo json_encode([['name'=>"Zoe"], ['name'=>"Leaf"], ['name'=>"Etron"]]);
 });
+
+
+/********************************************
+ * Users
+ ********************************************/
+
+/* Get all users */
+Route::get('/users', 'SessionController@index');
+
+/* Get one user by ID */
+Route::get('/users/{id}', 'SessionController@oneUser');
+

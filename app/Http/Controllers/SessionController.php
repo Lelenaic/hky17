@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class SessionController extends Controller
@@ -12,7 +13,11 @@ class SessionController extends Controller
     }
 
     public function index(){
-        return view('login');
+        return User::all();
+    }
+
+    public function oneUser($id){
+        return User::where('id', $id)->get();
     }
 
     public function login(Request $r){
@@ -22,13 +27,13 @@ class SessionController extends Controller
         ]);
         $auth=auth()->attempt(['email'=>$r->username, 'password'=>$r->password]);
         if ($auth){
-            return redirect()->home();
+            return ['success'=>true];
         }else{
-            return back()->withErrors(['Identifiants incorrects']);
+            return ['success'=>false];
         }
     }
 
     public function logout(){
-
+        auth()->logout();
     }
 }
