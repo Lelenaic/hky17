@@ -2,28 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class SessionController extends Controller
 {
-    public function __construct()
-    {
-        //$this->middleware('guest')->except('logout');
-    }
 
     public function index(){
-        return view('login');
+        return User::all();
+    }
+
+    public function oneUser($id){
+        return User::where('id', $id)->get();
     }
 
     public function login(Request $r){
         $r->validate([
-            'username' => 'email|required',
+            'email' => 'email|required',
             'password' => 'required'
         ]);
-        auth()->attempt(['email'=>$r->username, 'password'=>$r->password]);
+        $auth=auth()->attempt(['email'=>$r->email, 'password'=>$r->password]);
+        if ($auth){
+            return ['success'=>true];
+        }else{
+            return ['success'=>false];
+        }
     }
 
     public function logout(){
-
+        auth()->logout();
     }
 }

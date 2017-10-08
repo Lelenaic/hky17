@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdinateursTable extends Migration
+class CreateBookingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateOrdinateursTable extends Migration
      */
     public function up()
     {
-        Schema::create('ordinateurs', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ class CreateOrdinateursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ordinateurs');
+        Schema::dropIfExists('bookings');
     }
 }

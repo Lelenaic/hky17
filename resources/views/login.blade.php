@@ -75,12 +75,15 @@
 
 <!-- custom -->
 <script src="/asset/js/main.js"></script>
+<script src="/js/laroute.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_flat-aero',
             radioClass: 'iradio_flat-aero'
         });
+
+        console.log(laroute.route('test', {name: 'Pierre'}));
     });
 </script>
 <!-- end: Javascript -->
