@@ -18,10 +18,10 @@ use Illuminate\Http\Request;
  ********************************************/
 
 /* Get all charging stations */
-Route::get('/charging_stations', 'ChargingStationController@index');
+Route::get('/chargingStations', 'ChargingStationController@index');
 
 /* Get one charging station by ID */
-Route::get('/charging_stations/{id}', 'ChargingStationController@index');
+Route::get('/chargingStations/{id}', 'ChargingStationController@index');
 
 
 /********************************************
@@ -29,9 +29,7 @@ Route::get('/charging_stations/{id}', 'ChargingStationController@index');
  ********************************************/
 
 /* Get all cars */
-Route::get('/cars', function () {
-
-});
+Route::get('/cars', 'CarController@index');
 
 
 /********************************************
@@ -50,5 +48,6 @@ Route::post('/login', 'SessionController@login');
 /********************************************
  * Bookings
  ********************************************/
-/* Make a new Boking */
+/* Make a new Booking */
 Route::post('/bookings', 'BookingController@store');
+

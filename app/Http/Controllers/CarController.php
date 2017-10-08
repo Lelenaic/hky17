@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\ChargingStation;
+use App\Car;
 use Illuminate\Http\Request;
 
-class ChargingStationController extends Controller
+class CarController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return ChargingStation[]|\Illuminate\Database\Eloquent\Collection
+     * @return Car[]|\Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
-        return ChargingStation::all();
+        return Car::all();
     }
 
     /**
@@ -30,19 +30,12 @@ class ChargingStationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $r
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
-        $r->validate([
-            'name' => 'required',
-        ]);
-        $c = new ChargingStation();
-        $c->name = $r->name;
-
-        $c->save();
-
+        //
     }
 
     /**
@@ -70,11 +63,11 @@ class ChargingStationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $r
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $r, $id)
+    public function update(Request $request, $id)
     {
         //
     }

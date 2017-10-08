@@ -25,7 +25,8 @@ class CreateChargingStationsTable extends Migration
             $table->string('rechargeType');
             $table->integer('rechargePoint');
             $table->string('connectorType');
-
+            $table->tinyInteger('state')->default(1);
+            $table->timestamps();
         });
     }
 

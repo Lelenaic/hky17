@@ -4,14 +4,19 @@ namespace App\Bc;
 
 use App\Car;
 use App\ChargingStation;
+use App\User;
 use App\Utils;
 
 class Booking
 {
+
+    const CHAIN_NAME = 'resa';
+    const STREAM_NAME = 'booking';
+
     private $_id;
-    private $_chargeStation;
+    private $_chargingStation;
     private $_timestamp;
-    private $_car;
+    private $_user;
     /**
      * @var \App\Booking
      */
@@ -53,17 +58,17 @@ class Booking
     /**
      * @return mixed
      */
-    public function getChargeStation()
+    public function getChargingStation()
     {
-        return $this->_chargeStation;
+        return $this->_chargingStation;
     }
 
     /**
-     * @param mixed $chargeStation
+     * @param mixed $chargingStation
      */
-    public function setChargeStation($chargeStation)
+    public function setChargingStation($chargingStation)
     {
-        $this->_chargeStation = $chargeStation;
+        $this->_chargingStation = $chargingStation;
     }
 
     /**
@@ -85,22 +90,19 @@ class Booking
     /**
      * @return mixed
      */
-    public function getCar()
+    public function getUser()
     {
-        return $this->_car;
+        return $this->_user;
     }
 
     /**
-     * @param mixed $car
+     * @param User $user
      */
-    public function setCar($car)
+    public function setUser(User $user)
     {
-        $this->_car = $car;
+        $this->_user = $user;
     }
 
-
-    const CHAIN_NAME = 'resa';
-    const STREAM_NAME = 'booking';
 
     /**
      * @return Booking[]
@@ -134,8 +136,8 @@ class Booking
         $bk = new Booking();
         $bk->setId($metadata->id);
         $bk->setRelatedBooking(\App\Booking::find($metadata->id));
-        $bk->setCar(Car::find($metadata->car));
-        $bk->setChargeStation(ChargingStation::find($metadata->chargingStation));
+        $bk->setUser(User::find($metadata->user));
+        $bk->setChargingStation(ChargingStation::find($metadata->chargingStation));
         $bk->setTimestamp($metadata->timestamp);
         return $bk;
     }
@@ -147,8 +149,15 @@ class Booking
         } else {
             $bk = new \App\Booking();
             $bk->save();
+            $this->setRelatedBooking($bk);
             $this->_id = $bk->id;
-            $data = Utils::strToHex(json_encode($this, JSON_UNESCAPED_UNICODE));
+            $toEncode = [
+                'id' => $this->_id,
+                'chargingStation' => $this->_chargingStation->id,
+                'user' => $this->_user->id,
+                'timestamp' => $this->_timestamp
+            ];
+            $data = Utils::strToHex(json_encode($toEncode, JSON_UNESCAPED_UNICODE));
             exec('multichain-cli ' . static::CHAIN_NAME . ' publish ' . static::STREAM_NAME . ' ' . $bk->id . ' ' . $data);
             return true;
         }
