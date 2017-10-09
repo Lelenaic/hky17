@@ -13,6 +13,10 @@ class BookingController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(){
+        return \App\Booking::all();
+    }
+
     public function store(Request $r){
         $r->validate([
             'chargingStation' => 'required|integer',

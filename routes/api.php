@@ -48,4 +48,5 @@ Route::post('/login', 'SessionController@login');
  ********************************************/
 /* Make a new Booking */
 Route::post('/bookings', 'BookingController@store');
-
+Route::get('/bookings', 'BookingController@index');
+Route::get('/me', 'UserController@me');
