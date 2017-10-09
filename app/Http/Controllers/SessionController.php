@@ -8,14 +8,11 @@ use Illuminate\Http\Request;
 class SessionController extends Controller
 {
 
-    public function index(){
-        return User::all();
-    }
-
-    public function oneUser($id){
-        return User::where('id', $id)->get();
-    }
-
+    /**
+     * Log a user in.
+     * @param Request $r
+     * @return array
+     */
     public function login(Request $r){
         $r->validate([
             'email' => 'email|required',
@@ -25,10 +22,13 @@ class SessionController extends Controller
         if ($auth){
             return ['success'=>true];
         }else{
-            return ['success'=>false];
+            return ['success'=>false, 'message' => 'E-mail ou mot de passe incorrect.'];
         }
     }
 
+    /**
+     * Log a user out.
+     */
     public function logout(){
         auth()->logout();
     }

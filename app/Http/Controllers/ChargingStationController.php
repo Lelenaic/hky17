@@ -30,7 +30,7 @@ class ChargingStationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $r
+     * @param  \Illuminate\Http\Request $r
      * @return \Illuminate\Http\Response
      */
     public function store(Request $r)
@@ -40,15 +40,13 @@ class ChargingStationController extends Controller
         ]);
         $c = new ChargingStation();
         $c->name = $r->name;
-
         $c->save();
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -59,7 +57,7 @@ class ChargingStationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -70,8 +68,8 @@ class ChargingStationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $r
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $r
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $r, $id)
@@ -82,7 +80,7 @@ class ChargingStationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

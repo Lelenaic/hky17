@@ -43,10 +43,15 @@ Route::get('/users/{id}', 'SessionController@oneUser');
 /* Try to login an user */
 Route::post('/login', 'SessionController@login');
 
+/* Get information about the current user */
+Route::get('/me', 'UserController@me');
+
 /********************************************
  * Bookings
  ********************************************/
+
 /* Make a new Booking */
 Route::post('/bookings', 'BookingController@store');
+
+/* List all bookings */
 Route::get('/bookings', 'BookingController@index');
-Route::get('/me', 'UserController@me');

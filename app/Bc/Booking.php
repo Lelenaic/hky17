@@ -9,8 +9,9 @@ use App\Utils;
 
 class Booking
 {
-
+    // THe blockahin name
     const CHAIN_NAME = 'resa';
+    // The stream name. A stream is a set of data (like a collection in mongo).
     const STREAM_NAME = 'booking';
 
     private $_id;
@@ -105,6 +106,7 @@ class Booking
 
 
     /**
+     * Get all bookings from blockchain
      * @return Booking[]
      */
     public static function all(): array
@@ -119,6 +121,7 @@ class Booking
         return $array;
     }
 
+    // Find and get a booking by ID
     public static function find(int $id): Booking
     {
         $bookings = shell_exec('multichain-cli ' . static::CHAIN_NAME . ' liststreamkeyitems ' . static::STREAM_NAME . ' ' . $id);
@@ -130,6 +133,11 @@ class Booking
         }
     }
 
+    /**
+     * Create a Booking from hexadecimal data.
+     * @param String $hexa
+     * @return Booking
+     */
     private static function newFromHex(String $hexa): Booking
     {
         $metadata = json_decode(Utils::hexToStr($hexa));
@@ -142,6 +150,12 @@ class Booking
         return $bk;
     }
 
+    /**
+     * Save a new booking in the database.
+     * Only new bookings are allowed. Cannot modify or delete.
+     * @return bool
+     * @throws \Exception
+     */
     public function save(): bool
     {
         if (isset($this->_id)) {
