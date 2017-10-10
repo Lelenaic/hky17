@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class Booking
 {
     // THe blockahin name
-    const CHAIN_NAME = 'resa';
+    const CHAIN_NAME = 'book';
     // The stream name. A stream is a set of data (like a collection in mongo).
     const STREAM_NAME = 'booking';
 
