@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    /**
-     * Only authenticated users can access here ...
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * List of bookings
@@ -32,9 +25,11 @@ class BookingController extends Controller
         $r->validate([
             'chargingStation' => 'required|integer',
             'timestamp' => 'required|integer|digits:10',
-            'kms' => 'required|integer'
+            'kms' => 'required|integer',
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
-        auth()->loginUsingId(1);
+        auth()->once(['email'=>$r->email, 'password' => $r->password]);
         $bk=new Booking();
         $bk->setUser(auth()->user());
         $bk->setTimestamp($r->timestamp);
