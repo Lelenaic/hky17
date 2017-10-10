@@ -6,6 +6,7 @@ use App\Car;
 use App\ChargingStation;
 use App\User;
 use App\Utils;
+use Carbon\Carbon;
 
 class Booking
 {
@@ -19,10 +20,30 @@ class Booking
     private $_timestamp;
     private $_user;
     /**
+     * @var integer
+     */
+    private $_charge;
+    /**
      * @var \App\Booking
      */
     private $_relatedBooking;
 
+
+    /**
+     * @return int
+     */
+    public function getCharge(): int
+    {
+        return $this->_charge;
+    }
+
+    /**
+     * @param int $charge
+     */
+    public function setCharge(int $charge)
+    {
+        $this->_charge = $charge;
+    }
 
     /**
      * @return \App\Booking
@@ -115,8 +136,10 @@ class Booking
         $bookings = json_decode($bookings);
         $array = array();
         foreach ($bookings as $booking) {
-            $bk = static::newFromHex($booking->data);
-            $array[] = $bk;
+            if ($booking->key != 1) {
+                $bk = static::newFromHex($booking->data);
+                $array[] = $bk;
+            }
         }
         return $array;
     }
@@ -147,6 +170,7 @@ class Booking
         $bk->setUser(User::find($metadata->user));
         $bk->setChargingStation(ChargingStation::find($metadata->chargingStation));
         $bk->setTimestamp($metadata->timestamp);
+        $bk->setCharge($metadata->charge);
         return $bk;
     }
 
@@ -169,11 +193,24 @@ class Booking
                 'id' => $this->_id,
                 'chargingStation' => $this->_chargingStation->id,
                 'user' => $this->_user->id,
-                'timestamp' => $this->_timestamp
+                'timestamp' => $this->_timestamp,
+                'charge' => $this->_charge
             ];
             $data = Utils::strToHex(json_encode($toEncode, JSON_UNESCAPED_UNICODE));
             exec('multichain-cli ' . static::CHAIN_NAME . ' publish ' . static::STREAM_NAME . ' ' . $bk->id . ' ' . $data);
             return true;
         }
+    }
+
+    public function getStartFormatted()
+    {
+        return substr(\Carbon\Carbon::createFromTimestamp($this->_timestamp)->toW3cstring(), 0, 19);
+    }
+
+    public function getEndFormatted()
+    {
+        $duration = rand(3600, (3600 * 5));
+        return substr(\Carbon\Carbon::createFromTimestamp($this->_timestamp + $duration)
+            ->toW3cstring(), 0, 19);
     }
 }

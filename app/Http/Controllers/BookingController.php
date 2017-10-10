@@ -31,11 +31,16 @@ class BookingController extends Controller
     public function store(Request $r){
         $r->validate([
             'chargingStation' => 'required|integer',
-            'timestamp' => 'required|integer|digits:10'
+            'timestamp' => 'required|integer|digits:10',
+            'kms' => 'required|integer',
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
+        auth()->once(['email'=>$r->email, 'password' => $r->password]);
         $bk=new Booking();
         $bk->setUser(auth()->user());
         $bk->setTimestamp($r->timestamp);
+        $bk->setCharge($r->kms);
         $bk->setChargingStation(ChargingStation::find($r->chargingStation));
         $bk->save();
     }
