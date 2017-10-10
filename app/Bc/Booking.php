@@ -148,7 +148,7 @@ class Booking
         $bookings=static::all();
         $a=array();
         foreach ($bookings as $booking) {
-            $a[]=['title'=>$booking->getChargingStation(), 'start'=>$booking->getStartFormatted(), 'end'=>$booking->getEndFormatted()];
+            $a[]=['title'=>$booking->getChargingStation()->id, 'start'=>$booking->getStartFormatted(), 'end'=>$booking->getEndFormatted()];
         }
         return $a;
     }
