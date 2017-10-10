@@ -14,7 +14,7 @@ class BookingController extends Controller
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function index(){
-        return \App\Bc\Booking::all();
+        return response()->json(\App\Bc\Booking::allToJson());
     }
 
     /**

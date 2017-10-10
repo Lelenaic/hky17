@@ -144,6 +144,15 @@ class Booking
         return $array;
     }
 
+    public static function allToJson(){
+        $bookings=static::all();
+        $a=array();
+        foreach ($bookings as $booking) {
+            $a[]=['title'=>$booking->getChargingStation(), 'start'=>$booking->getStartFormatted(), 'end'=>$booking->getEndFormatted()];
+        }
+        return $a;
+    }
+
     // Find and get a booking by ID
     public static function find(int $id): Booking
     {
