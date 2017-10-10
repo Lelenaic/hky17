@@ -14,7 +14,7 @@ class BookingController extends Controller
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function index(){
-        return \App\Booking::all();
+        return \App\Bc\Booking::all();
     }
 
     /**
